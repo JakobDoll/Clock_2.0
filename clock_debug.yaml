@@ -1,0 +1,73 @@
+# Temporäre Debug-Konfiguration ohne LCD
+esphome:
+  name: "clock-2-0"
+  friendly_name: "Clock 2.0"
+
+esp8266:
+  board: d1_mini
+
+# WiFi-Konfiguration mit Secrets
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  
+  ap:
+    ssid: "Clock-2-0 Fallback Hotspot"
+    password: "12345678"
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+web_server:
+  port: 80
+
+# Home Assistant Zeit-Synchronisation
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    timezone: "Europe/Berlin"
+    on_time_sync:
+      then:
+        - logger.log: "Zeit mit Home Assistant synchronisiert"
+
+# Status-LED
+output:
+  - platform: gpio
+    pin: D4  # Onboard LED (invertiert)
+    id: onboard_led
+    inverted: true
+
+light:
+  - platform: binary
+    name: "Status LED"
+    output: onboard_led
+    id: status_led
+
+# Sensoren
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+  - platform: version
+    name: "ESPHome Version"
+
+button:
+  - platform: restart
+    name: "Restart"

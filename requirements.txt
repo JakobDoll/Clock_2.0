@@ -1,0 +1,2 @@
+esphome>=2024.6.0
+platformio>=6.1.0

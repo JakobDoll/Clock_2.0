@@ -1,0 +1,88 @@
+esphome:
+  name: "clock-2-0"
+  friendly_name: "Clock 2.0"
+
+esp8266:
+  board: d1_mini
+
+# WiFi-Konfiguration - bitte anpassen!
+wifi:
+  ssid: "Skynet_2.0"
+  password: "PasswoerterSindWichtig2023#"
+  
+  # Fallback Hotspot falls WiFi nicht verbindet
+  ap:
+    ssid: "Clock-2-0 Fallback Hotspot"
+    password: "12345678"
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "AUTOMATISCH_GENERIERT_BEIM_ERSTEN_BUILD"
+
+# Over-the-Air Updates
+ota:
+  - platform: esphome
+    password: "ota_password"
+
+# Web Server für lokale Kontrolle
+web_server:
+  port: 80
+
+# Home Assistant Zeit-Synchronisation
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    on_time_sync:
+      then:
+        - logger.log: "Zeit mit Home Assistant synchronisiert"
+
+# Optional: NTP als Fallback
+# time:
+#   - platform: sntp
+#     id: sntp_time
+#     servers:
+#       - "pool.ntp.org"
+#       - "time.google.com"
+
+# I2C Bus für eventuell angeschlossene Displays/Sensoren
+i2c:
+  sda: D2
+  scl: D1
+  scan: true
+
+# Beispiel-GPIO-Pins für LEDs/Relais (können später erweitert werden)
+output:
+  - platform: gpio
+    pin: D5
+    id: led_output
+    
+light:
+  - platform: binary
+    name: "Status LED"
+    output: led_output
+    id: status_led
+
+# Sensor für WiFi-Signalstärke
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Strength"
+    update_interval: 60s
+
+# Text-Sensoren für System-Informationen
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+  - platform: version
+    name: "ESPHome Version"
+
+# Button für Neustart
+button:
+  - platform: restart
+    name: "Restart"

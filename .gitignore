@@ -53,3 +53,28 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# ESPHome-spezifische Dateien
+.esphome/
+*.bin
+
+# Python Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets-Datei (sollte nicht committet werden)
+secrets.yaml
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# VSCode
+.vscode/settings.json
+.vscode/c_cpp_properties.json
+
+# Temporäre Dateien
+*.log
+*.tmp

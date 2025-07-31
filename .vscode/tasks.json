@@ -1,0 +1,113 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ESPHome: Validate Config",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "config",
+        "clock.yaml"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ESPHome: Compile",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "compile",
+        "clock_with_secrets.yaml"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ESPHome: Upload",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "upload",
+        "clock.yaml"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ESPHome: Upload (OTA)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "upload",
+        "clock.yaml",
+        "--device",
+        "clock-2-0.local"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ESPHome: Logs",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "logs",
+        "clock.yaml"
+      ],
+      "group": "test",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "ESPHome: Clean Build Files",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/esphome",
+      "args": [
+        "clean",
+        "clock.yaml"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
